@@ -12,11 +12,27 @@ object PlacesManager extends App {
   val logger = Logging(system, getClass)
 
   val route = logRequestResult("places-manager") {
-    get {
+    (post & pathEndOrSingleSlash) {
       complete {
-        OK -> "Yupi:)"
+        OK -> "new place :)"
       }
-    }
+    } ~
+      (get & pathEndOrSingleSlash) {
+        complete {
+          OK -> "places list :)"
+        }
+      } ~
+      path(Segment) { id =>
+        (put & pathEndOrSingleSlash) {
+          complete {
+            OK -> s"update place :${id}"
+          }
+        } ~ (get & pathEndOrSingleSlash) {
+          complete {
+            OK -> s"get place :${id}"
+          }
+        }
+      }
   }
 
   Http().bind(interface = "0.0.0.0", port = 8080).startHandlingWith(route)
