@@ -1,8 +1,8 @@
 enablePlugins(JavaAppPackaging)
 
-name := "places-service"
+name := "places-manageer"
 
-version := "1.0"
+version := "1.0.0"
 
 scalaVersion := "2.11.5"
 
